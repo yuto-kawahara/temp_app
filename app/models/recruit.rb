@@ -13,4 +13,10 @@ class Recruit < ApplicationRecord
   validates :explanation,         presence: true
   validates :discord_server_link, presence: true
 
+  enum recruit_status:{
+    not_recruit: 0,     #未募集
+    now_recruit: 1,    #募集中
+    few_recruit: 2,    #残り僅か
+    end_recruit: 3     #募集終了
+  }
 end
