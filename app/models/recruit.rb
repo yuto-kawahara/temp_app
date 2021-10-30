@@ -1,4 +1,7 @@
 class Recruit < ApplicationRecord
+  scope :status, -> (status)  { where(recruit_status: status ) }
+  scope :sorted, -> { order(created_at: :desc ) }
+
   belongs_to :user
   belongs_to :play_form
   belongs_to :entry_condition
@@ -19,4 +22,8 @@ class Recruit < ApplicationRecord
     few_recruit: 2,    #残り僅か
     end_recruit: 3     #募集終了
   }
+
+  def to_param
+    title
+  end
 end

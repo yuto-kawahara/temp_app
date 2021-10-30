@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_29_134540) do
+ActiveRecord::Schema.define(version: 2021_10_30_095234) do
 
   create_table "discord_server_links", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -113,7 +113,6 @@ ActiveRecord::Schema.define(version: 2021_10_29_134540) do
     t.string "nickname", default: "", null: false
     t.string "icon_image_id", default: "", null: false
     t.text "introduction", default: "", null: false
-    t.datetime "deleted_id", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -121,6 +120,7 @@ ActiveRecord::Schema.define(version: 2021_10_29_134540) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
