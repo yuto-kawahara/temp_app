@@ -32,7 +32,7 @@ Rails.application.routes.draw do
     resource :relationships, only: [:create, :destroy]
   end
 
-  resources :recruits, param: :title do
+  resources :recruits do
     collection do
       get  'schedule'
     end
@@ -40,11 +40,13 @@ Rails.application.routes.draw do
       post 'confirm'
       get  'complete'
     end
-    resources :recruit_comments, only: [:edit, :update, :create, :destory]
+    resources :recruit_comments, only: [:edit, :update, :create, :destroy]
   end
 
   resources :reserves, only: [:update, :create, :destroy]
   resources :notifications, only: [:index]
   resources :messages, only: [:create, :destory, :index, :show]
+  resources :recruit_play_forms, only: [:create, :destroy]
+  resources :recruit_entry_conditions, only: [:create, :destroy]
 
 end

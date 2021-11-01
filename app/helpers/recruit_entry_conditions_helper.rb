@@ -1,0 +1,2 @@
+module RecruitEntryConditionsHelper
+end

@@ -39,6 +39,9 @@ class UsersController < ApplicationController
   end
 
   def ensure_correct_user
-    @user = User.find_by(nickname: params[:id])
+    @user = User.find_by(nickname: params[:nickname])
+    if @user == current_user
+      @user = current_user
+    end
   end
 end

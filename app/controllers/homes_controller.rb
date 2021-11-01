@@ -3,7 +3,7 @@ class HomesController < ApplicationController
   end
 
   def home
-    @users = current_user.following_user.includes(:recruits)
+    @recruits = Recruit.following_user_recruit(current_user).sorted
   end
 
   def setting

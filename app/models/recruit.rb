@@ -1,13 +1,16 @@
 class Recruit < ApplicationRecord
+  scope :following_user_recruit, -> (user) { where(user_id: [user.id, user.following_user] ) }
   scope :status, -> (status)  { where(recruit_status: status ) }
   scope :sorted, -> { order(created_at: :desc ) }
 
   belongs_to :user
-  belongs_to :play_form
-  belongs_to :entry_condition
-  has_many   :reserves,         dependent: :destroy
-  has_many   :recruit_comments, dependent: :destroy
-  has_many   :notifications,    dependent: :destroy
+  has_many   :recruit_play_forms,       dependent: :destroy
+  has_many   :play_forms,               through:   :recruit_play_forms
+  has_many   :recruit_entry_conditions, dependent: :destroy
+  has_many   :entry_conditions,         through:   :recruit_entry_conditions
+  has_many   :reserves,                 dependent: :destroy
+  has_many   :recruit_comments,         dependent: :destroy
+  has_many   :notifications,            dependent: :destroy
 
   attachment :image
   validates :title,               presence: true
@@ -23,7 +26,4 @@ class Recruit < ApplicationRecord
     end_recruit: 3     #募集終了
   }
 
-  def to_param
-    title
-  end
 end

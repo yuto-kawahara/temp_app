@@ -1,8 +1,4 @@
-<div>
-  <p>ホーム</p>
-</div>
-<% unless @recruits.blank? %>
-  <ul>
+<ul>
   <% @recruits.each do |recruit| %>
     <li>
       <%= link_to recruit_path(recruit) do %>
@@ -14,7 +10,4 @@
       <% end %>
     </li>
   <% end %>
-  </ul>
-<% else %>
-  <p>新しい投稿はありません</p>
-<% end %>
+</ul>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_30_095234) do
+ActiveRecord::Schema.define(version: 2021_11_01_001052) do
 
   create_table "discord_server_links", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -62,10 +62,22 @@ ActiveRecord::Schema.define(version: 2021_10_30_095234) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "recruit_entry_conditions", force: :cascade do |t|
+    t.integer "recruit_id", null: false
+    t.integer "entry_condition_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "recruit_play_forms", force: :cascade do |t|
+    t.integer "recruit_id", null: false
+    t.integer "play_form_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "recruits", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "play_form_id", null: false
-    t.integer "entry_condition_id", null: false
     t.string "title", default: "", null: false
     t.string "image_id", default: "", null: false
     t.datetime "hold_datetime", null: false
@@ -80,12 +92,11 @@ ActiveRecord::Schema.define(version: 2021_10_30_095234) do
   end
 
   create_table "relationships", force: :cascade do |t|
-    t.integer "follower_id", null: false
     t.integer "followed_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "following_id"
     t.index ["followed_id"], name: "index_relationships_on_followed_id"
-    t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
   create_table "reserves", force: :cascade do |t|

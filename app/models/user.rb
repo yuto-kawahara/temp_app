@@ -9,9 +9,10 @@ class User < ApplicationRecord
   has_many :reserves,              dependent: :destroy
   has_many :messages,              dependent: :destroy
   has_many :user_rooms,            dependent: :destroy
+  has_many :rooms,                 through: :user_rooms
   has_many :discord_server_links,  dependent: :destroy
 
-  has_many :following,             class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  has_many :following,             class_name: "Relationship", foreign_key: "following_id", dependent: :destroy
   has_many :followed,              class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :following_user,        through: :following, source: :followed
   has_many :follower_user,         through: :followed,  source: :following
@@ -23,17 +24,17 @@ class User < ApplicationRecord
   validates :nickname,     presence: true, uniqueness: true
 
   def follow(user)
-    follower.create(followed_id: user.id)
+    following.create(followed_id: user.id)
   end
 
   def unfollow(user)
-    follower.find_by(followed_id: user.id).destroy
+    following.find_by(followed_id: user.id).destroy
   end
 
   def following?(user)
     following_user.include?(user)
   end
-  
+
   def to_param
     nickname
   end
