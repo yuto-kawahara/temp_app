@@ -1,19 +1,18 @@
-<p>フォロワー</p>
-<% unless @users.blank? %>
-  <ul>
-    <% @users.each do |user| %>
-      <li>
-        <%= link_to profile_user_path(user) do %>
-          <%= attachment_image_tag user, :icon_image, :fill, 130, 130, fallback: "person-circle-outline.svg", size:"130x130" %>
-          <%= user.nickname %>
-          <%= user.introduction %>
-        <% end %>
-        <div class="follow_area">
-          <%= render 'relationships/follow', user: user %>
-        </div>
-      </li>
+<%= link_to current_user.nickname, profile_user_path %>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <%= link_to followings_user_path, class:"nav-link active" do %>
+      フォロー中
     <% end %>
-  </ul>
-<% else %>
-  <p>フォローしているユーザーはいません</p>
-<% end %>
+  </li>
+  <li class="nav-item">
+    <%= link_to followers_user_path, class:"nav-link" do %>
+      フォロワー
+    <% end %>
+  </li>
+</ul>
+<div class="tab-content">
+  <div class="tab-pane active">
+    <%= render 'index', users: @users  %>
+  </div>
+</div>

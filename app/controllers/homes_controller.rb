@@ -4,6 +4,7 @@ class HomesController < ApplicationController
 
   def home
     @recruits = Recruit.following_user_recruit(current_user).sorted
+    binding.pry
   end
 
   def setting

@@ -1,4 +1,7 @@
 class MessagesController < ApplicationController
+  include MessagesHelper
+  include NotificationsHelper
+
   def index
     @rooms = current_user.rooms
     @user_rooms = UserRoom.where(room_id: @rooms).where.not(user_id: current_user.id)
@@ -7,23 +10,16 @@ class MessagesController < ApplicationController
   def create
     @message = current_user.messages.new(message_params)
     @message.save
+    users = @message.room.users
+    user_id = users.where.not(id: current_user.id).first.id
+    create_notification(user_id, nil, nil, @message.id, "message")
   end
 
   def show
-    @user = User.find(params[:id])
-    rooms = current_user.user_rooms.pluck(:room_id)
-    @user_rooms = UserRoom.find_by(user_id: @user.id, room_id: rooms)
-
-    if @user_rooms.present?
-      @room = @user_rooms.room
-    else
-      @room = Room.new
-      @room.save
-      UserRoom.create(user_id: current_user.id, room_id: @room.id)
-      UserRoom.create(user_id: @user.id, room_id: @room.id)
-    end
-    @messages = @room.messages
-    @message = Message.new(room_id: @room.id)
+    @room = Room.find(params[:id])
+    users = @room.users
+    @user = users.where.not(id: current_user.id).first
+    room_create_search(@user.id, "", "one")
   end
 
   private

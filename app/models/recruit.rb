@@ -26,4 +26,8 @@ class Recruit < ApplicationRecord
     end_recruit: 3     #募集終了
   }
 
+  def reserve_exist?(user)
+    reserves.where(user_id: user.id).exists?
+  end
+
 end

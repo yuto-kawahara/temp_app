@@ -12,6 +12,7 @@ class RecruitsController < ApplicationController
 
   def show
     @recruit_comment = RecruitComment.new
+    @reserve = Reserve.new
     @entry_list = @recruit.entry_conditions
     @form_list = @recruit.play_forms
   end
@@ -57,6 +58,10 @@ class RecruitsController < ApplicationController
   end
 
   def schedule
+  end
+
+  def reserve_list
+    @reserves = @recruit.reserves
   end
 
   def confirm

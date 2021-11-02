@@ -10,7 +10,7 @@
     	</td>
     	<td><%= comment.comment %></td>
     	<% if current_user == recruit_comment_user %>
-      	<td><%= link_to 'Destroy', recruit_recruit_comment_path(recruit.title, comment.id), method: :delete, remote: true %></td>
+      	<td><%= link_to 'Destroy', recruit_recruit_comment_path(recruit, comment), method: :delete, remote: true %></td>
     	<% end %>
     </tr>
   <% end %>

@@ -19,6 +19,16 @@
 </style>
 
 <section class="recruit_wrapper">
+  <% if @recruit.user == current_user %>
+    <div class="recruit_btn_area">
+      <%= link_to edit_recruit_path(@recruit), class: "btn" do %>
+        <i class="fas fa-pen"></i>
+      <% end %>
+      <%= link_to recruit_path(@recruit), method: :delete, class: "btn" do %>
+        <i class="fas fa-trash-alt"></i>
+      <% end %>
+    </div>
+  <% end %>
   <table>
     <tbody>
       <tr>
@@ -74,14 +84,19 @@
     </tbody>
   </table>
   <% if @recruit.user == current_user %>
-    <div class="recruit_btn_area">
-      <%= link_to edit_recruit_path(@recruit), class: "btn" do %>
-        <i class="fas fa-pen"></i>
-      <% end %>
-      <%= link_to recruit_path(@recruit), method: :delete, class: "btn" do %>
-        <i class="fas fa-trash-alt"></i>
+    <div class="confirm_btn_area">
+      <%= link_to reserve_list_recruit_path(@recruit.id), class: "btn btn-primary" do %>
+        <i class="far fa-list-alt">予約リスト</i>
       <% end %>
     </div>
+  <% else %>
+    <% if @recruit.reserves.count <= @recruit.capacity %>
+      <div class="reserve_btn_area">
+        <%= render 'reserves/reserve_btn', recruit: @recruit %>
+      </div>
+    <% else %>
+      <p>予約人数に到達しました</p>
+    <% end %>
   <% end %>
   <div class="recruit_comment_index">
     <%= render 'recruit_comments/index', recruit: @recruit %>

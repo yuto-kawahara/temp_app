@@ -28,7 +28,25 @@
         <%= link_to recruit_path(recruit) do %>
           <%= attachment_image_tag @user, :icon_image, :fill, 40, 40, fallback: "person-circle-outline.svg", size:"40x40" %>
           <%= @user.nickname %> <br>
-          <%= recruit.recruit_status_i18n %>
+          <% case recruit.recruit_status
+               when "not_recruit" %>
+
+          　<% when "now_recruit" %>
+              <div class="icon_status">
+                <ion-icon name="ellipse-outline"></ion-icon><br>
+            　   <small><%= recruit.recruit_status_i18n %></small>
+          　   </div>
+            <% when "few_recruit" %>
+              <div class="icon_status">
+                <ion-icon name="triangle-outline"></ion-icon><br>
+                <small><%= recruit.recruit_status_i18n %></small>
+              </div>
+            <% when "end_recruit" %>
+              <div class="icon_status">
+                <ion-icon name="close-outline"></ion-icon><br>
+                <small><%= recruit.recruit_status_i18n %></small>
+              </div>
+          <% end %>
           <%= recruit.title %>
           <%= recruit.hold_datetime %>
         <% end %>
@@ -36,3 +54,12 @@
     <% end %>
   </ul>
 </div>
+
+<style>
+  .icon_status {
+    font-size: 18px;
+    text-align: center;
+    list-style: none;
+  }
+
+</style>

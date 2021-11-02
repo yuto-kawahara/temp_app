@@ -2,9 +2,8 @@ class RecruitCommentsController < ApplicationController
   before_action :set_recruit
 
   def create
-    @recruit_comment = RecruitComment.new(comment_params)
+    @recruit_comment = current_user.recruit_comments.new(comment_params)
     @recruit_comment.recruit_id = @recruit.id
-    @recruit_comment.user_id = current_user.id
     @recruit_comment.save
   end
 
@@ -16,7 +15,7 @@ class RecruitCommentsController < ApplicationController
   private
 
   def set_recruit
-    @recruit = Recruit.find_by(title: params[:recruit_title])
+    @recruit = Recruit.find(params[:recruit_id])
   end
 
   def comment_params

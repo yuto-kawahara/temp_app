@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_01_001052) do
+ActiveRecord::Schema.define(version: 2021_11_01_112403) do
 
   create_table "discord_server_links", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -102,9 +102,9 @@ ActiveRecord::Schema.define(version: 2021_11_01_001052) do
   create_table "reserves", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "recruit_id", null: false
-    t.text "reserve_status", default: "0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "reserve_status"
   end
 
   create_table "rooms", force: :cascade do |t|
