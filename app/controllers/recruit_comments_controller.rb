@@ -1,10 +1,12 @@
 class RecruitCommentsController < ApplicationController
   before_action :set_recruit
+  include NotificationsHelper
 
   def create
     @recruit_comment = current_user.recruit_comments.new(comment_params)
     @recruit_comment.recruit_id = @recruit.id
     @recruit_comment.save
+    create_notification(@recruit.user.id, @recruit.id, @recruit_comment.id, nil, "comment")
   end
 
   def destroy

@@ -27,9 +27,19 @@ class UsersController < ApplicationController
     @users = @user.follower_user
   end
 
+  def reserve
+    @reserves = current_user.reserves
+  end
+
   def schedule
     @recruits = current_user.recruits
-    @reserves = current_user.reserves
+    @other_recruits = Recruit.where.not(user_id: current_user.id)
+    @other_recruits.each do |recruit|
+      reserve = recruit.reserves.find_by(user_id: current_user.id)
+      if !reserve.blank?
+        @recruits.push(reserve.recruit)
+      end
+    end
   end
 
   private

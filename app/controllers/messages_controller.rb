@@ -4,7 +4,8 @@ class MessagesController < ApplicationController
 
   def index
     @rooms = current_user.rooms
-    @user_rooms = UserRoom.where(room_id: @rooms).where.not(user_id: current_user.id)
+    @user_rooms = UserRoom.where(room_id: @rooms).sorted
+    @user_rooms = @user_rooms.where.not(user_id: current_user.id)
   end
 
   def create
@@ -16,9 +17,7 @@ class MessagesController < ApplicationController
   end
 
   def show
-    @room = Room.find(params[:id])
-    users = @room.users
-    @user = users.where.not(id: current_user.id).first
+    @user = User.find(params[:id])
     room_create_search(@user.id, "", "one")
   end
 

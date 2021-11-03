@@ -2,10 +2,16 @@
 
 <div class="message" style="width: 400px;">
   <% @messages.each do |message| %>
-    <% if message.user_id == current_user.id %>
-      <p style="text-align: right;"><%= message.content %></p>
+
+    <% if message.content.include?("a href=https://discord") %>
+      <% content = message.content.html_safe %>
     <% else %>
-      <p style="text-align: left;"><%= message.content %></p>
+      <% content = message.content %>
+    <% end %>
+    <% if message.user_id == current_user.id %>
+      <p style="text-align: right;"><%= content %></p>
+    <% else %>
+      <p style="text-align: left;"><%= content %></p>
     <% end %>
   <% end %>
 </div>

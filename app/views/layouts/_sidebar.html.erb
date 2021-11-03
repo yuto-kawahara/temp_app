@@ -1,19 +1,19 @@
 <div class="navigation">
   <ul class="side_menu">
     <li class="side_menu__list">
-      <%= link_to home_path do %>
+      <%= link_to home_path, class: "side_menu__link" do %>
         <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
         <span class="title">ホーム</span>
       <% end %>
     </li>
     <li class="side_menu__list">
-      <%= link_to profile_user_path(current_user) do %>
+      <%= link_to profile_user_path(current_user), class: "side_menu__link" do %>
         <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
         <span class="title">プロフィール</span>
       <% end %>
     </li>
     <li class="side_menu__list">
-      <%= link_to recruits_path do %>
+      <%= link_to recruits_path, class: "side_menu__link" do %>
         <span class="icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 617.27 494.09">
             <g id="レイヤー_2" data-name="レイヤー 2">
@@ -42,7 +42,7 @@
       <% end %>
     </li>
     <li class="side_menu__list">
-      <%= link_to reserve_user_path(current_user) do %>
+      <%= link_to reserve_user_path(current_user), class: "side_menu__link" do %>
         <span class="icon">
           <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
             <g>
@@ -60,34 +60,34 @@
       <% end %>
     </li>
     <li class="side_menu__list">
-      <%= link_to messages_path do %>
+      <%= link_to messages_path, class: "side_menu__link" do %>
         <span class="icon"><ion-icon name="chatbubbles-outline"></ion-icon></span>
         <span class="title">メッセージ</span>
       <% end %>
     </li>
     <li class="side_menu__list">
-      <%= link_to notifications_path do %>
-        <span class="icon"><ion-icon name="notifications-outline"></ion-icon></span>
+      <%= link_to notifications_path, class: "side_menu__link" do %>
+        <span class="icon"><ion-icon name="notifications-outline" class="notice_icon" data-notice=<%= @unread %>></ion-icon></span>
         <span class="title">通知</span>
       <% end %>
     </li>
     <li class="side_menu__list">
-      <%= link_to schedule_user_path(current_user) do %>
+      <%= link_to schedule_user_path(current_user), class: "side_menu__link" do %>
         <span class="icon"><ion-icon name="calendar-outline"></ion-icon></span>
         <span class="title">スケジュール</span>
       <% end %>
     </li>
     <li class="side_menu__list">
-      <%= link_to setting_path do %>
+      <%= link_to setting_path, class: "side_menu__link" do %>
         <span class="icon"><ion-icon name="settings-outline"></ion-icon></span>
         <span class="title">設定</span>
       <% end %>
     </li>
-    <li class="side_menu__list">
-      <%= link_to destory_user_session_path, method: :delete do %>
-        <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
-        <span class="title">ログアウト</span>
-      <% end %>
-    </li>
   </ul>
+  <div class="recruit_btn_area_side">
+    <%= link_to new_recruit_path, class: "btn_recruit" do %>
+      <span class="icon"><ion-icon name="bonfire-outline"></ion-icon></span>
+      <span class="recruit_title">募集する</span>
+    <% end %>
+  </div>
 </div>

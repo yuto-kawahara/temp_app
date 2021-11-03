@@ -1,5 +1,5 @@
 class Recruit < ApplicationRecord
-  scope :following_user_recruit, -> (user) { where(user_id: [user.id, user.following_user] ) }
+  scope :following_user_recruit, -> (user) { where(user_id: user.following_user ) }
   scope :status, -> (status)  { where(recruit_status: status ) }
   scope :sorted, -> { order(created_at: :desc ) }
 

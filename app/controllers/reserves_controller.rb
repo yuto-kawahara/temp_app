@@ -1,5 +1,6 @@
 class ReservesController < ApplicationController
   before_action :set_recruit
+  before_action :confirm_access_restrictions, only: [:confirm, :complete]
   include MessagesHelper
   include NotificationsHelper
 
@@ -17,14 +18,15 @@ class ReservesController < ApplicationController
 
   def update
     @reserve = Reserve.find(params[:id])
-    @reserves = Reserve.includes(:recruit, :user)
+    @reserves = @recruit.reserves
     status = params[:status]
-    if status == "approve_reserve"
-      @reserve.update_attributes(reserve_status: "approve_reserve")
-      @active = "green_active"
-    else
-      @reserve.update_attributes(reserve_status: "reject_reserve")
-      @active = "red_active"
+    case status
+      when "approve_reserve" then
+        @reserve.update_attributes(reserve_status: "approve_reserve")
+        @active = "green_active"
+      when "reject_reserve" then
+        @reserve.update_attributes(reserve_status: "reject_reserve")
+        @active = "red_active"
     end
   end
 
@@ -37,8 +39,8 @@ class ReservesController < ApplicationController
     @recruit.update_attributes(recruit_status: "end_recruit")
     @reserves.each do |reserve|
       user = reserve.user
-      server_link = reserve.recruit.discord_server_link
-      room_create_search(user, server_link, "broadcast")
+      server_link = "サーバー招待を送信します\r\nご入室ください\r\n#{text_url_to_link(reserve.recruit.discord_server_link).html_safe}"
+      room_create_search(user.id, server_link, "broadcast")
     end
   end
 
@@ -48,4 +50,9 @@ class ReservesController < ApplicationController
     @recruit = Recruit.find(params[:recruit_id])
   end
 
+  def confirm_access_restrictions
+    if @recruit.recruit_status == "end_recruit"
+      redirect_to reserve_list_recruit_path(@recruit.id)
+    end
+  end
 end

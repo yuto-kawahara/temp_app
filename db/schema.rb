@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_01_112403) do
+ActiveRecord::Schema.define(version: 2021_11_02_131725) do
 
   create_table "discord_server_links", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 2021_11_01_112403) do
     t.integer "reserves_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "start_time"
   end
 
   create_table "relationships", force: :cascade do |t|

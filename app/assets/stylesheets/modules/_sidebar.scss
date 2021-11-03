@@ -5,39 +5,37 @@
   background-color: #fff;
   box-shadow: 10px 0 0 #00C343;
   border-left: 10px solid #fff;
-
-  & ul {
+  & .side_menu {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     padding-left: 5px;
     padding-top: 40px;
-  }
 
-  & li {
-    position: relative;
-    list-style: none;
-    width: 100%;
-    border-radius: 20px 0 0 20px;
+    &__list {
+      position: relative;
+      list-style: none;
+      width: 100%;
+      border-radius: 20px 0 0 20px;
 
-    &:hover {
-      background-color: #00C343;
-      & a {
-        color: #fff;
-        & svg {
-          fill: #fff;
+      &:hover {
+        background-color: #00C343;
+        & a {
+          color: #fff;
+          & svg {
+            fill: #fff;
+          }
         }
       }
     }
-  }
-
-  & a {
-    position: relative;
-    display: flex;
-    width: 100%;
-    text-decoration: none;
-    color: #000;
+    &__link {
+      position: relative;
+      display: flex;
+      width: 100%;
+      text-decoration: none;
+      color: #000;
+    }
   }
 
   & .icon {
@@ -47,6 +45,32 @@
     height: 60px;
     line-height: 70px;
     text-align: center;
+  }
+
+  & .notice_icon[data-notice="false"]::before {
+    display: none;
+  }
+
+  & .notice_icon {
+    &::before {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      content: "";
+      min-width: 13px;
+      height: 13px;
+      box-sizing: border-box;
+      padding: 4px;
+      font-size: 10px;
+      font-weight: bold;
+      background-color: #ef5350;
+      border: 1px solid #fff;
+      border-radius: 10px;
+      top: 0;
+      right: 0;
+      z-index: 1;
+    }
   }
 
   & ion-icon {
@@ -68,4 +92,27 @@
 svg {
   min-width: 24px;
   height: 24px;
+}
+
+.recruit_btn_area_side {
+  position: absolute;
+  width: 100%;
+  bottom: 100px;
+
+  & .btn_recruit {
+    display: flex;
+    border-radius: 30px;
+    width: 80%;
+    background: #00C343;
+    text-align: center;
+    color: #fff;
+    padding: 0 30px;
+  }
+
+  & .recruit_title {
+    height: 60px;
+    line-height: 60px;
+    white-space: nowrap;
+    font-size: 1.3rem;
+  }
 }

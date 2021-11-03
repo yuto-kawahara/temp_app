@@ -1,14 +1,18 @@
 <% reserves.each do |reserve| %>
-  <%= attachment_image_tag reserve.user, :icon_image, :fill, 40, 40, fallback: "person-circle-outline.svg", size:"40x40" %>
-  <%= reserve.user.nickname %>
-  <% if reserve.reserve_status == "approve_reserve" %>
-    <%= render 'reserves/confirm_btn', reserve: reserve, recruit: recruit, green_active: "active", red_active: "no_active" %>
-  <% elsif reserve.reserve_status == "reject_reserve" %>
-    <%= render 'reserves/confirm_btn', reserve: reserve, recruit: recruit, green_active: "no_active", red_active: "active" %>
-  <% else %>
-    <%= render 'reserves/confirm_btn', reserve: reserve, recruit: recruit, green_active: "no_active", red_active: "no_active" %>
+  <% user = reserve.user %>
+  <% status = reserve.reserve_status %>
+  <%= attachment_image_tag user, :icon_image, :fill, 40, 40, fallback: "person-circle-outline.svg", size:"40x40" %>
+  <%= user.nickname %>
+  <% case status
+       when "approve_reserve" %>
+      <%= render 'reserves/confirm_btn', reserve: reserve, recruit: recruit, green_active: "active", red_active: "no_active" %>
+    <% when "reject_reserve" %>
+      <%= render 'reserves/confirm_btn', reserve: reserve, recruit: recruit, green_active: "no_active", red_active: "active" %>
+    <% else %>
+      <%= render 'reserves/confirm_btn', reserve: reserve, recruit: recruit, green_active: "no_active", red_active: "no_active" %>
   <% end %>
 <% end %>
+
 <style>
 a.btn_border_green.active {
   color: #fff;

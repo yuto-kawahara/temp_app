@@ -1,5 +1,6 @@
 class Notification < ApplicationRecord
-  scope :unread, -> { where(checked: false )    }
+  scope :unread, -> { where(checked: false ) }
+  scope :sorted, -> { order(created_at: :desc ) }
 
   belongs_to :recruit,         optional: true
   belongs_to :recruit_comment, optional: true

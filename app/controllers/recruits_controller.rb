@@ -1,6 +1,6 @@
 class RecruitsController < ApplicationController
   before_action :ensure_correct_recruit, except: [:new, :index, :create, :schedule]
-  before_action :set_app_requirements, only: [:new, :edit]
+  before_action :set_app_requirements, only: [:new, :create, :edit]
 
   def new
     @recruit = Recruit.new
@@ -41,6 +41,7 @@ class RecruitsController < ApplicationController
   def create
     @recruit = Recruit.new(recruit_params)
     @recruit.user_id = current_user.id
+    @recruit.start_time = @recruit.hold_datetime
     play_form_ids = params[:recruit][:play_form_ids]
     entry_condition_ids = params[:recruit][:entry_condition_ids]
     if @recruit.save
@@ -58,6 +59,8 @@ class RecruitsController < ApplicationController
   end
 
   def schedule
+    date = params[:date]
+    @recruits = Recruit.where(hold_datetime: date.in_time_zone.all_day)
   end
 
   def reserve_list
